@@ -28,4 +28,12 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+
+    public function snapshots(){
+        return $this->hasMany('App\Snapshot');
+    }
+    public function schedules(){
+        return $this->hasMany('App\Schedule');
+    }
 }
