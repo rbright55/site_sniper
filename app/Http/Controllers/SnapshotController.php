@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Snapshot;
+use Alert;
+use Validator, Redirect;
 
 class SnapshotController extends Controller
 {
@@ -14,7 +16,8 @@ class SnapshotController extends Controller
      */
     public function index()
     {
-        $snapshots = Auth::user()->snapshots()->get();
+        //$snapshots = Auth::user()->snapshots()->get();
+        $snapshots = Snapshot::get();
         return $snapshots;
     }
 
@@ -36,7 +39,21 @@ class SnapshotController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
+        //validate url
+        $validator = Validator::make($request->all(), [
+            'website' => 'required|url',
+        ]);
+
+        if ($validator->fails()) {
+            Alert::error($validator->errors()->first('website'), 'Error');
+            //return $validator->errors();
+            return Redirect::back()->withErrors($validator)->withInput();
+        }
+        Alert::success('Success Message', 'All good');
+        return Redirect::back();
+        //check if extra fields
+        //check if user logged in
     }
 
     /**

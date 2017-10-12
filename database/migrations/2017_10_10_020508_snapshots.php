@@ -37,7 +37,8 @@ class Snapshots extends Migration
     public function down()
     {
         Schema::table('snapshots', function ($table) {
-            $table->dropForeign(['user_id','file_id']);
+            $table->dropForeign(['user_id']);
+            $table->dropForeign(['file_id']);
         });
         Schema::dropIfExists('snapshots');
     }

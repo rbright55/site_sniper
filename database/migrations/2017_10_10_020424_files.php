@@ -18,7 +18,7 @@ class Files extends Migration
             $table->string('filename');
             $table->string('mime');
             $table->string('original_filename');
-            $talbe->string('link')->nullable();
+            $table->string('link')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
