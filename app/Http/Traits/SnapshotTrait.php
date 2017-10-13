@@ -4,34 +4,48 @@ namespace App\Http\Traits;
 
 use JonnyW\PhantomJs\Client;
 use App\Snapshot;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\File;
+use App\File as fileentry;
 
-trait BrandsTrait {
+trait SnapshotTrait {
     public function takeSnap($site) {
-    	//validate text
+    	/*
+		* Need to find out what happens if site unreachable
+    	*/
+
+		$random_file_name = md5(uniqid(rand(), true));
 
 
         //take snap of site
 	    $client = Client::getInstance();
 	    $client->isLazy();
 
-	    /** 
-	     * @see JonnyW\PhantomJs\Http\Request
-	     **/
-	    $request = $client->getMessageFactory()->createRequest('http://google.me', 'GET');
-	    $request->setTimeout(5000);
-
-	    /** 
-	     * @see JonnyW\PhantomJs\Http\Response 
-	     **/
+	    $client->getEngine()->setPath('../bin/phantomjs');
+	    $request  = $client->getMessageFactory()->createCaptureRequest($site);
+	    //$request->setDelay(15);
+	    //$request->setQuality(300);
 	    $response = $client->getMessageFactory()->createResponse();
-
-	    // Send the request
 	    $client->send($request, $response);
 
-	    if($response->getStatus() === 200) {
+	    
+	    $file_o = '../bin/'.$random_file_name.'.jpg';
+	    $request->setOutputFile($file_o);
+	    $client->send($request, $response);
 
-	        // Dump the requested page content
-	        return $response->getContent();
-	    }
+	    $file = new File($file_o);
+	    $stored_file = Storage::putFile('/', $file);
+	    unlink($file_o);
+
+	    //store link in file db table
+	    $entry = new fileentry;
+	    $entry->mime = Storage::mimeType($stored_file);
+		$entry->original_filename = $stored_file;
+		$entry->filename = $stored_file;
+		$entry->save();
+		//file entry id
+	    return $entry->id;
+
+
     }
 }

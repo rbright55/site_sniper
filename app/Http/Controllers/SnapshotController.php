@@ -6,9 +6,12 @@ use Illuminate\Http\Request;
 use App\Snapshot;
 use Alert;
 use Validator, Redirect;
+use App\Http\Traits\SnapshotTrait;
 
 class SnapshotController extends Controller
 {
+    use SnapshotTrait;
+
     /**
      * Display a listing of the resource.
      *
@@ -50,8 +53,11 @@ class SnapshotController extends Controller
             //return $validator->errors();
             return Redirect::back()->withErrors($validator)->withInput();
         }
-        Alert::success('Success Message', 'All good');
-        return Redirect::back();
+
+
+        //Alert::success('Success Message', 'All good');
+        echo $this->takeSnap($request->input('website'));
+        //return Redirect::back();
         //check if extra fields
         //check if user logged in
     }
