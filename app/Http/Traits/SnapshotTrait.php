@@ -23,6 +23,7 @@ trait SnapshotTrait {
 
 	    $client->getEngine()->setPath('../bin/phantomjs');
 	    $request  = $client->getMessageFactory()->createCaptureRequest($site);
+	    $request->setViewportSize(1024, 960);
 	    //$request->setDelay(15);
 	    //$request->setQuality(300);
 	    $response = $client->getMessageFactory()->createResponse();

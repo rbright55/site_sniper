@@ -33,20 +33,39 @@
   <body>
     <!-- navbar-->
     <header class="header">
-      <nav class="navbar navbar-expand-lg fixed-top"><a href="index.html" class="navbar-brand">Site Sniper</a>
+      <nav class="navbar navbar-expand-lg fixed-top"><a href="{{ url('/') }}" class="navbar-brand">Site Sniper</a>
         <button type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler navbar-toggler-right"><span></span><span></span><span></span></button>
         <div id="navbarSupportedContent" class="collapse navbar-collapse">
           <ul class="navbar-nav ml-auto align-items-start align-items-lg-center">
-            <li class="nav-item"><a href="#features" class="nav-link link-scroll">Features</a></li>
-            <li class="nav-item"><a href="text.html" class="nav-link">Login</a></li>
+            @auth
+            <li class="nav-item"><a href="{{ url('/snapshots') }}" class="nav-link">Snapshots</a></li>
+            @endauth
+            <li class="nav-item"><a href="{{ url('/#features') }}" class="nav-link link-scroll">Features</a></li>
+            @guest
+            <li class="nav-item"><a href="#" data-toggle="modal" data-target="#loginModal" class="nav-link">Login</a></li>
+            @endguest
           </ul>
+          @guest
           <div class="navbar-text">   
             <!-- Button trigger modal--><a href="#" data-toggle="modal" data-target="#signupModal" class="btn btn-primary navbar-btn btn-shadow btn-gradient">Sign Up</a>
           </div>
+          @else
+          <div class="navbar-text">   
+            <!-- Button trigger modal--><a href="{{url('/logout')}}" class="btn btn-primary navbar-btn btn-shadow btn-gradient">Logout</a>
+          </div>
+          @endguest
+
         </div>
       </nav>
     </header>
+    @guest
+      @include('modals.signup')
+      @include('modals.login')
+    @endguest
     @yield('content')
+    <div id="scrollTop">
+      <div class="d-flex align-items-center justify-content-end"><i class="fa fa-long-arrow-up"></i>To Top</div>
+    </div>
     <footer>
       <div class="copyrights">
         <div class="container">

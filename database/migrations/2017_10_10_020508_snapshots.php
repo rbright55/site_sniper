@@ -15,8 +15,9 @@ class Snapshots extends Migration
     {
         Schema::create('snapshots', function(Blueprint $table){
             $table->increments('id');
-            $table->string('name');
-            $table->string('website');
+            $table->string('name')->nullable();
+            $table->string('url');
+            $table->string('domain');
             $table->integer('user_id')->unsigned()->nullable();
             $table->integer('file_id')->unsigned();
             $table->timestamps();

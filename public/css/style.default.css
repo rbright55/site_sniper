@@ -261,7 +261,7 @@ section header {
   padding: 20px 30px;
   border: none;
 }
-
+/*signup modal */
 #signupform .form-group {
   margin-bottom: 20px;
 }
@@ -309,7 +309,54 @@ section header {
   font-style: italic;
   font-size: 0.9em;
 }
+/*signup modal */
+#loginform .form-group {
+  margin-bottom: 20px;
+}
 
+#loginform label {
+  display: block;
+  padding-left: 10px;
+  color: #656565;
+  font-family: "Open Sans", sans-serif;
+}
+
+#loginform input {
+  width: 100%;
+  display: block;
+  padding: 10px 20px;
+  border-radius: 50px;
+  border: 1px solid #eee;
+  outline: none;
+}
+
+#loginform input:focus {
+  border-color: #5989e5;
+}
+
+#loginform input::-moz-placeholder {
+  font-family: "Open Sans", sans-serif;
+  font-weight: 300;
+  color: #aaa;
+  font-style: italic;
+  font-size: 0.9em;
+}
+
+#loginform input::-webkit-input-placeholder {
+  font-family: "Open Sans", sans-serif;
+  font-weight: 300;
+  color: #aaa;
+  font-style: italic;
+  font-size: 0.9em;
+}
+
+#loginform input:-ms-input-placeholder {
+  font-family: "Open Sans", sans-serif;
+  font-weight: 300;
+  color: #aaa;
+  font-style: italic;
+  font-size: 0.9em;
+}
 /* General Media Query ---------------------------------- */
 @media (max-width: 991px) {
   section {
@@ -520,6 +567,7 @@ section.features .text p {
 */
 section.extra-features {
   color: #fff;
+  padding-top: 50px;
 }
 
 section.extra-features h2,
